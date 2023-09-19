@@ -8,7 +8,7 @@ services:
       - POSTGRES_USER=${pg_user}
       - POSTGRES_PASSWORD=${pg_pass}
     ports:
-      - "${pg_port}"
+      - "${pg_port}:${pg_port}"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -17,31 +17,28 @@ services:
     networks:
       - parser
 
-  parser:
-    build:
-      context: .
-      dockerfile: dockerfiles/Dockerfile.backend
-    env_file:
-      - ./.env
-    volumes:
-      - static_volume:/app/static/
-    depends_on:
-      - db
-    networks:
-    - parser
-
   admin:
     build:
-      context: .
-      dockerfile: dockerfiles/Dockerfile.backend
+      context: ./admin
     env_file:
       - ./.env
     volumes:
       - static_volume:/app/static/
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
-    - parser
+      - parser
+
+  parser:
+    build:
+      context: ./parsers
+    env_file:
+      - ./.env
+    depends_on:
+      - admin
+    networks:
+      - parser
 
   nginx:
     image: nginx:latest
@@ -50,7 +47,7 @@ services:
       - ./nginx/configs:/etc/nginx/conf.d:ro
       - static_volume:/static/:ro
     depends_on:
-      - backend
+      - admin
     ports:
       - "80:80"
       - "8000:8000"
