@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "parsers"
+version = "1.0.0"
+description = ""
+authors = ["Ivan Nedobezhkin <inedobezkin@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+scrapy = "^2.11.0"
+pydantic = "^2.3.0"
+pydantic-settings = "^2.0.3"
+sqlalchemy = "^2.0.21"
+apscheduler = "^3.10.4"
+scrapy-playwright = "^0.0.32"
+psycopg2-binary = "^2.9.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
