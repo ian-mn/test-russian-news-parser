@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 
 class Post(models.Model):
     """Post model."""
+
     def __str__(self) -> str:
         return self.post_title
 
