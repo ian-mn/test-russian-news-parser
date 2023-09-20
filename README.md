@@ -6,6 +6,8 @@
 1. Скопировать содержимое файла `.env.sample` в файл `.env`. Для Linux `cp .env.sample .env`
 2. Запустить `docker-compose up --build`
 
+Перед запуском нужно убедиться, что docker'у разрешен [FileSharing](https://stackoverflow.com/questions/70877785/docker-error-response-from-daemon-user-declined-directory-sharing).
+
 ## Демонстрация
 Проект доступен по [ссылке](http://77.246.105.150/admin).
 Логин - admin, пароль - 123qwe.
